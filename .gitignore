@@ -1,0 +1,9 @@
+.venv/
+.tools/
+artifacts/
+**/bin/
+**/obj/
+**/__pycache__/
+engine/build/
+engine/dist/
+*.user
