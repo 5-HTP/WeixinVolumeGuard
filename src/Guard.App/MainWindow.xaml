@@ -1,0 +1,76 @@
+<Window x:Class="Guard.App.MainWindow"
+ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+ Title="微信防降音助手" Width="920" Height="680" MinWidth="680" MinHeight="540"
+ WindowStartupLocation="CenterScreen" Closing="OnClosing">
+ <Grid Margin="28,20,28,20">
+  <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+  <StackPanel Margin="0,0,0,18">
+   <TextBlock Text="微信防降音助手" FontSize="26" FontWeight="SemiBold"/>
+   <TextBlock Text="WEIXIN VOLUME GUARD" FontSize="11" Opacity="0.55" Margin="0,5,0,0"/>
+  </StackPanel>
+  <TabControl Grid.Row="1" BorderThickness="0" Background="Transparent">
+   <TabItem Header="首页">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+     <StackPanel Margin="8,22,12,16">
+      <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+       <TextBlock x:Name="StatusIcon" Text="&#xE7E8;" FontFamily="Segoe Fluent Icons" FontSize="26" Margin="0,0,12,0" VerticalAlignment="Center"/>
+       <TextBlock x:Name="StatusTitle" Text="正在连接引擎" FontSize="25" FontWeight="SemiBold"/>
+      </StackPanel>
+      <TextBlock x:Name="StatusDetail" Text="正在读取当前微信和音频环境。" Opacity="0.75" Margin="0,0,0,22" MinHeight="40"/>
+      <Grid Margin="0,0,0,18">
+       <Grid.ColumnDefinitions><ColumnDefinition Width="130"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+       <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+       <TextBlock Text="微信运行" Opacity="0.6" Margin="0,8"/><TextBlock x:Name="RunningText" Grid.Column="1" Text="检查中" Margin="0,8"/>
+       <TextBlock Grid.Row="1" Text="版本支持" Opacity="0.6" Margin="0,8"/><TextBlock x:Name="VersionText" Grid.Row="1" Grid.Column="1" Text="尚未检测" Margin="0,8"/>
+       <TextBlock Grid.Row="2" Text="当前防护" Opacity="0.6" Margin="0,8"/><TextBlock x:Name="ProtectionText" Grid.Row="2" Grid.Column="1" Text="尚未确认" Margin="0,8"/>
+      </Grid>
+      <Separator Margin="0,0,0,14"/>
+      <CheckBox x:Name="ProtectionToggle" Content="启用防降音" FontSize="17" AutomationProperties.Name="启用防降音" Checked="ToggleProtection" Unchecked="ToggleProtection" IsEnabled="False"/>
+      <DockPanel Margin="0,12,0,18" LastChildFill="True">
+       <Button DockPanel.Dock="Right" x:Name="RetryButton" Click="Retry" ToolTip="重新检测微信和音频环境" AutomationProperties.Name="重新检测">
+        <StackPanel Orientation="Horizontal"><TextBlock Text="&#xE72C;" FontFamily="Segoe Fluent Icons" Margin="0,0,8,0"/><TextBlock Text="重新检测"/></StackPanel>
+       </Button>
+       <TextBlock x:Name="CountText" Text="本次挂接已拦截 0 次" VerticalAlignment="Center" Opacity="0.7"/>
+      </DockPanel>
+      <TextBlock Text="仅支持校验通过的微信版本。环境检查通过不代表此 Windows 与驱动组合已完成录音实测。" FontSize="12" Opacity="0.6"/>
+     </StackPanel>
+    </ScrollViewer>
+   </TabItem>
+   <TabItem Header="设置">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+     <StackPanel Margin="8,22,12,16">
+      <TextBlock Text="启动与后台" FontSize="19" FontWeight="SemiBold" Margin="0,0,0,12"/>
+      <CheckBox x:Name="StartupToggle" Content="Windows 登录时启动" Checked="ToggleStartup" Unchecked="ToggleStartup" AutomationProperties.Name="Windows 登录时启动"/>
+      <TextBlock Text="仅为当前用户登记。系统任务管理器仍可单独停用此启动项。" FontSize="12" Opacity="0.65" Margin="26,0,0,14"/>
+      <CheckBox x:Name="TrayToggle" Content="关闭窗口后保留在系统托盘" Checked="ToggleTray" Unchecked="ToggleTray" AutomationProperties.Name="关闭窗口后保留在系统托盘"/>
+      <TextBlock Text="托盘菜单中的“退出”会停用防护并退出程序。" FontSize="12" Opacity="0.65" Margin="26,0,0,22"/>
+      <Separator Margin="0,0,0,22"/>
+      <TextBlock Text="本地诊断" FontSize="19" FontWeight="SemiBold" Margin="0,0,0,10"/>
+      <TextBlock Text="日志仅记录状态和错误；不保存聊天或语音内容。" Opacity="0.7" Margin="0,0,0,14"/>
+      <Button Content="打开日志目录" HorizontalAlignment="Left" Click="OpenLogs"/>
+      <TextBlock x:Name="SettingsMessage" Margin="0,20,0,0"/>
+     </StackPanel>
+    </ScrollViewer>
+   </TabItem>
+   <TabItem Header="关于">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+     <StackPanel Margin="8,22,12,16">
+      <TextBlock Text="微信防降音助手 0.1.0" FontSize="19" FontWeight="SemiBold" Margin="0,0,0,16"/>
+      <TextBlock Text="发微信语音时，不必打断正在听的声音" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,8"/>
+      <TextBlock Text="在电脑上听歌、看视频或做音频时，一录微信语音，其他声音可能突然变小。这个工具就是为了解决这件小事：阻止受支持版本的微信在录语音时调低设备主音量。" TextWrapping="Wrap" Margin="0,0,0,18"/>
+      <TextBlock Text="只在本机运行" FontWeight="SemiBold" Margin="0,0,0,8"/>
+      <TextBlock Text="不读取聊天或语音，不上传内容，也不修改微信文件。它不会把音量锁在某个数值。" TextWrapping="Wrap" Margin="0,0,0,18"/>
+      <TextBlock Text="遇到问题？" FontWeight="SemiBold" Margin="0,0,0,8"/>
+      <TextBlock Text="用不了或遇到问题，欢迎到 GitHub 的 WeixinVolumeGuard 项目反馈。也可以用项目源码适配新版微信，或提交 PR 分享你的改动。" TextWrapping="Wrap" Margin="0,0,0,18"/>
+      <TextBlock Text="这是独立第三方工具，与腾讯及微信官方无关。" TextWrapping="Wrap" FontSize="12" Opacity="0.72"/>
+     </StackPanel>
+    </ScrollViewer>
+   </TabItem>
+  </TabControl>
+  <DockPanel Grid.Row="2" Margin="0,18,0,0" LastChildFill="True">
+   <Button DockPanel.Dock="Right" Content="退出" Click="ExitClick" Padding="14,6" MinHeight="32"/>
+   <TextBlock x:Name="FooterText" Text="关闭窗口后仍在托盘运行" FontSize="12" VerticalAlignment="Center" Opacity="0.6" Margin="0,0,12,0"/>
+  </DockPanel>
+ </Grid>
+</Window>
