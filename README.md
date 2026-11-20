@@ -5,7 +5,7 @@
 
 在电脑上听歌、看视频或做音频，一按下微信语音录制，其他声音就突然变小？这个 Windows 小工具就是为了解决这件事。它阻止受支持的微信客户端在录语音时调低设备主音量，不会把音量锁在某个数值。
 
-**[下载 Windows x64 测试版](https://github.com/5-HTP/WeixinVolumeGuard/releases)** · [兼容性](docs/COMPATIBILITY.md) · [问题反馈](https://github.com/5-HTP/WeixinVolumeGuard/issues)
+**[下载 Windows x64 测试版](https://github.com/5-HTP/WeixinVolumeGuard/releases/tag/v0.1.0)** · [兼容性](docs/COMPATIBILITY.md) · [问题反馈](https://github.com/5-HTP/WeixinVolumeGuard/issues)
 
 这是独立第三方工具，与腾讯及微信官方无关。不读取聊天或语音，不上传内容，也不修改微信文件。
 
@@ -18,7 +18,7 @@
 
 首页开启防护，等待显示“已启用”后再开始下一段录音。微信退出和重新启动后会重新校验。开机自启默认关闭，可以在设置中更改。关闭窗口默认保留托盘；托盘的“退出”会停用并退出。
 
-下载包未签名。不要为运行它而关闭系统安全防护；可用发布页的 `SHA256SUMS.txt` 核对下载文件。
+下载包未签名。不要为运行它而关闭系统安全防护；可用发布页的 SHA-256 校验值 核对下载文件。
 
 ## 支持范围
 
